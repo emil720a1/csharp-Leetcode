@@ -1,37 +1,34 @@
 ﻿
 
-public class Solution {
-    public int SearchInsert(int[] nums, int target)
+public class Solution 
+{
+    public int[] PlusOne(int[] digits) 
     {
-        var min = 0;
-        var max = nums.Length - 1;
-        while (min <= max)
+        for(int i = digits.Length - 1; i >= 0; i--)
         {
-            var mid = (min + max) / 2;
-            var found = nums[mid];
-            if (found == target)
+            if(digits[i] == 9)
             {
-                return mid;
-            }
-            else if (found > target)
-            {
-                max = mid - 1; // Search in the right half
+                digits[i] = 0;
+                continue;
             }
             else
             {
-                min = mid + 1; // Search in the left half
+                digits[i]++;
+                return digits;
             }
         }
-        return min;
+
+        int[] overflowed = new int[digits.Length + 1];
+        overflowed[0] = 1;
+        return overflowed;
     }
 }
-
 
 class Program
 {
     static void Main(string[] args)
     {
         Solution s = new Solution();
-        Console.WriteLine(s.SearchInsert([1,3,5,6], 2));
+        Console.WriteLine(s.PlusOne([9]));
     }
 }
