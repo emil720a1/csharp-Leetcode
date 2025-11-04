@@ -13,6 +13,23 @@ public class Solution {
       
         return true;
     }
+
+
+    public bool IsPalindrome2(int x)
+    {
+            if (x < 0 || (x % 10 == 0 && x != 0)) return false;
+
+            int temp = x;
+            int rev = 0;
+
+            while (temp > 0) {
+                int digit = temp % 10;
+                rev = rev * 10 + digit;
+                temp /= 10;
+            }
+
+            return rev == x;
+        }
 }
 class Program
 {
@@ -20,5 +37,8 @@ class Program
     {
         Solution s = new Solution();
         Console.WriteLine(s.IsPalindrome(123123));
+        
+        
+        Console.WriteLine(s.IsPalindrome2("ahhe"));
     }
 }
