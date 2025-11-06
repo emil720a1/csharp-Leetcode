@@ -1,34 +1,42 @@
 ﻿
 
-public class Solution 
+public class ListNode
 {
-    public int[] PlusOne(int[] digits) 
-    {
-        for(int i = digits.Length - 1; i >= 0; i--)
-        {
-            if(digits[i] == 9)
-            {
-                digits[i] = 0;
-                continue;
-            }
-            else
-            {
-                digits[i]++;
-                return digits;
-            }
-        }
+    public int Data;
+    public ListNode Next;
 
-        int[] overflowed = new int[digits.Length + 1];
-        overflowed[0] = 1;
-        return overflowed;
+    public ListNode(int data)
+    {
+        Data = data;
+        Next = null;
     }
 }
 
+public class Solution
+{ 
+    public ListNode ReverseList(ListNode head)
+    {
+        ListNode curr = head;
+        ListNode prev = null;
+        ListNode next;
+
+        while (curr != null)
+        {
+            next = curr.Next;
+            curr.Next = prev;
+            
+            
+            prev = curr;
+            curr = next;
+        }
+        return prev;
+    }
+
+}
 class Program
 {
     static void Main(string[] args)
     {
         Solution s = new Solution();
-        Console.WriteLine(s.PlusOne([9]));
     }
 }
