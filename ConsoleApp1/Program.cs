@@ -45,6 +45,36 @@ public class Solution {
         return dummy.next;
 
     }
+    
+    public ListNode MergeTwoLists2(ListNode list1, ListNode list2)
+    {
+        // if list1 happen to be NULL
+        if (list1 == null)
+        {
+            return list2;
+        }
+
+        // if list2 happen to be NULL
+        if (list2 == null)
+        {
+            return list1;
+        }
+        // if value pointend by list1 pointer is less than equal to value pointed by list2 pointer
+        if (list1.val <= list2.val)
+        {
+            // ... we wall call recursively list1.next and whole list2.
+            list1.next = MergeTwoLists(list1.next, list2);
+            return list1;
+        }else
+        {
+            list2.next = MergeTwoLists(list1, list2.next);
+            return list2;
+        }
+    }
+        
+        
+    
+    
 }
 
 class Program
