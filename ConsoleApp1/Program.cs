@@ -32,6 +32,34 @@ public class Solution
         return prev;
     }
 
+
+    public ListNode ReverseList2(ListNode head)
+    {
+        
+        
+        
+        // 1 -> 2 -> 3 -> 4 -> 5 -> null
+        
+         // через несколько шагов он будет таким 
+         // <- 1 <- 2        3 -> 4 -> 5 -> null
+         //        prev      curr 
+        
+        
+        
+        ListNode prev = null; 
+        ListNode curr = head;
+
+        while (curr != null)
+        {
+            var tmp = curr;
+            curr = curr.Next;
+            tmp.Next = prev;
+            prev = tmp;
+        }
+        
+        return prev;
+    }
+
 }
 class Program
 {
