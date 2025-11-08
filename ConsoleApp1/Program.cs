@@ -11,18 +11,21 @@
 
   public class Solution
   {
+      
+      
+      // Изначально это было мое решение, а второе это из курса по алгоритмам что я смотрел
       public ListNode RemoveNthFromEnd(ListNode head, int n)
       {
           ListNode dummy = new ListNode(0);
 
           dummy.next = head;
           ListNode first = dummy;
-          ListNode second = dummy;
 
           for (int i = 0; i <= n; i++)
           {
               first = first.next;
           }
+          ListNode second = dummy;
 
           while (first != null)
           {
@@ -33,6 +36,33 @@
           second.next = second.next.next;
           return dummy.next;
       }
+
+
+      public ListNode RemoveNthFromEnd2(ListNode head, int n)
+      {
+          var dummyNode = new ListNode(0);
+          
+          
+          int length = 0;
+          dummyNode.next = head;
+          var current = dummyNode;
+          while (current != null)
+          {
+              current = current.next;
+              length++;
+          }
+          
+          current = dummyNode;
+          for (int i = 0; i < length - n - 1; i++)
+          {
+              current = current.next;
+          }
+          
+          current.next = current.next.next;
+          
+          return dummyNode.next;
+
+  }
 
       public void printList(ListNode head)
       {
