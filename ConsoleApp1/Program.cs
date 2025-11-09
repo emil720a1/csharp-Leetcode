@@ -14,37 +14,35 @@ public class ListNode
 
 public class Solution
 {
-    public bool IsPalindrome(ListNode head)
+
+    public ListNode reorderList(ListNode head)
     {
-         ListNode first_half_end_node = middleNode(head);
-         ListNode second_half_begin_node = reverseList(first_half_end_node);
-         
-         //     p1          p2
-         // in: 1 ->  2  -> 3
-        // out: 1 ->  2  <- 3 
+        ListNode tmp = preMiddleNode(head);
+        // in: 1 -> 2 -> 3-> 4 -> 5 ->
+        //              tmp
+        ListNode p2 = reverseList(tmp.Next);
+        // curr: 1 -> 2 -> 3 -> 4 <- 5
+        //                     /    p2
+        //               Null <
         
+        tmp.Next = null;
+        // p1: 1 -> 2 -> 3 -> None
+        // p2: 5 -> 4 -> None
         
-        //     p1             p2
-        // in: 1 -> 2 -> 3 -> 4
-        // out:1 -> 2 <- 3 <- 4
-        //              /
-        //        null<|
-        
-        
-         ListNode p1 = head;
-         ListNode p2 = second_half_begin_node;
+        ListNode newHead = head;
+        ListNode p1 = head;
 
-         while (p1 != null && p2 != null)
-         {
-             if (p1.Data != p2.Data)
-             {
-                 return false;
-             }
-
-             p1 = p1.Next;
-             p2 = p2.Next;
-         }
-         return true;
+        while (p2 != null)
+        {
+            // ListNode temp1 = p1.Next;
+            // ListNode temp2 = p2.Next;
+            
+            p1.Next = p1.Next;
+            p1.Next = p2;
+            p1 = p2;
+            p2 = p1.Next;
+        }
+        return newHead;
     }
 
     public ListNode reverseList(ListNode head)
@@ -63,12 +61,12 @@ public class Solution
     }
     
     
-    public ListNode middleNode(ListNode head)
+    public ListNode preMiddleNode(ListNode head)
     {
         ListNode slow = head;
         ListNode fast = head;
 
-        while (fast != null && fast.Next != null)
+        while (fast != null && fast.Next != null && fast.Next.Next != null)
         {
             slow = slow.Next;
             fast = fast.Next.Next;
