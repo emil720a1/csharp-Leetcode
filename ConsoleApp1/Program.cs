@@ -13,53 +13,31 @@ public class ListNode
 }
 
 public class Solution
-{ 
-    public ListNode ReverseList(ListNode head)
+{
+    // f 
+    // 1 -> 2 -> 3 -> 4 -> 5 -> null
+    // s
+    
+    //           f
+    // 1 -> 2 -> 3 -> 4 -> 5 -> null
+    // s
+    
+    
+    //                     f
+    // 1 -> 2 -> 3 -> 4 -> 5 -> null
+    //           s
+    public ListNode middleNode(ListNode head)
     {
-        ListNode curr = head;
-        ListNode prev = null;
-        ListNode next;
+        ListNode slow = head;
+        ListNode fast = head;
 
-        while (curr != null)
+        while (fast != null && fast.Next != null)
         {
-            next = curr.Next;
-            curr.Next = prev;
-            
-            
-            prev = curr;
-            curr = next;
+            slow = slow.Next;
+            fast = fast.Next.Next;
         }
-        return prev;
+        return slow;
     }
-
-
-    public ListNode ReverseList2(ListNode head)
-    {
-        
-        
-        
-        // 1 -> 2 -> 3 -> 4 -> 5 -> null
-        
-         // через несколько шагов он будет таким 
-         // <- 1 <- 2        3 -> 4 -> 5 -> null
-         //        prev      curr 
-        
-        
-        
-        ListNode prev = null; 
-        ListNode curr = head;
-
-        while (curr != null)
-        {
-            var tmp = curr;
-            curr = curr.Next;
-            tmp.Next = prev;
-            prev = tmp;
-        }
-        
-        return prev;
-    }
-
 }
 class Program
 {
