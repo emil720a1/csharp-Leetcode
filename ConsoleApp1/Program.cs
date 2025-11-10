@@ -1,34 +1,44 @@
 ﻿
-
-public class Solution 
+public class ListNode
 {
-    public int[] PlusOne(int[] digits) 
+    public int val;
+    public ListNode next;
+
+    public ListNode(int x)
     {
-        for(int i = digits.Length - 1; i >= 0; i--)
+        val = x;
+        next = null;
+    }
+}
+
+public class Solution
+    {
+        public bool HasCycle(ListNode head)
         {
-            if(digits[i] == 9)
+            if (head == null || head.next == null) return false;
+
+            ListNode fast = head;
+            ListNode slow = head;
+
+            while (fast != null && fast.next != null)
             {
-                digits[i] = 0;
-                continue;
+                fast = fast.next.next;
+                slow = slow.next;
+
+                if (fast == slow) return true;
             }
-            else
-            {
-                digits[i]++;
-                return digits;
-            }
+
+            return false;
+
         }
-
-        int[] overflowed = new int[digits.Length + 1];
-        overflowed[0] = 1;
-        return overflowed;
     }
-}
 
-class Program
-{
-    static void Main(string[] args)
+    class Program
     {
-        Solution s = new Solution();
-        Console.WriteLine(s.PlusOne([9]));
+        static void Main(string[] args)
+        {
+            Solution s = new Solution();
+            s.HasCycle(null);
+
+        }
     }
-}
