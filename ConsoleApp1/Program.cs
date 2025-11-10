@@ -14,89 +14,25 @@ public class ListNode
 
 public class Solution
 {
-    public bool IsPalindrome(ListNode head)
+    public ListNode RemoveElements(ListNode head, int val)
     {
-         ListNode middle = middleNode(head);
-         ListNode reverse = reverseList(middle);
-         
-         //     p1          p2
-         // in: 1 ->  2  -> 3
-        // out: 1 ->  2  <- 3 
-        
-        
-        //     p1             p2
-        // in: 1 -> 2 -> 3 -> 4
-        // out:1 -> 2 <- 3 <- 4
-        //              /
-        //        null<|
-        
-        
-         ListNode p1 = head;
-         ListNode p2 = reverse;
+        ListNode dummy = new ListNode(0);
+        dummy.Next = head;
 
-         while (p1 != null && p2 != null)
-         {
-             if (p1.Data != p2.Data)
-             {
-                 return false;
-             }
+        ListNode current = dummy;
 
-             p1 = p1.Next;
-             p2 = p2.Next;
-         }
-         return true;
-    }
-
-
-    public bool IsPalindrome2(ListNode head)
-    {
-        if (head == null)
+        while (current.Next != null)
         {
-            return true;
-        }
-        
-        ListNode middle = middleNode(head);
-        ListNode reverse = reverseList(middle);
-
-        while (reverse != null)
-        {
-            if (reverse.Data != head.Data)
+            if (current.Next.Data == val)
             {
-                return false;
+                current.Next = current.Next.Next;
             }
-            reverse = reverse.Next;
-            head = head.Next;
+            else
+            {
+                current = current.Next;
+            }
         }
-        return true;
-    }
-
-    public ListNode reverseList(ListNode head)
-    {
-        ListNode prev = null;
-        ListNode curr = head;
-
-        while (curr != null)
-        {
-            ListNode temp = curr;
-            curr = curr.Next;
-            temp.Next = prev;
-            prev = temp;
-        }
-        return prev;
-    }
-    
-    
-    public ListNode middleNode(ListNode head)
-    {
-        ListNode slow = head;
-        ListNode fast = head;
-
-        while (fast != null && fast.Next != null)
-        {
-            slow = slow.Next;
-            fast = fast.Next.Next;
-        }
-        return slow;
+        return dummy.Next;
     }
 }
 
