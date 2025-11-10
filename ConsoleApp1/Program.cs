@@ -1,126 +1,41 @@
 ﻿
 
-  using System.Collections;
-
-  public class ListNode {
-      public int val;
-      public ListNode next;
-      public ListNode(int val=0, ListNode next=null) {
-          this.val = val;
-         this.next = next;
-      }
-  }
-  
-
-public class Solution {
-    public ListNode MergeTwoLists(ListNode list1, ListNode list2) {
-        if (list1 == null) return list2;
-        if (list2 == null) return list1;
-        if (list1 == null && list2 == null) return null;
-        
-        List<int> newList = new List<int>();
-        while (list1 != null)
-        {
-            newList.Add(list1.val);
-            list1 = list1.next;
-        }
-
-        while (list2 != null)
-        {
-            newList.Add(list2.val);
-            list2 = list2.next;
-        }
-
-        newList.Sort();
-
-        ListNode dummy = new ListNode(-1);
-        ListNode current = dummy;
-
-        foreach (int i in newList)
-        {
-            current.next = new ListNode(i);
-            current = current.next;
-        }
-
-        return dummy.next;
-
-    }
+public class Interval
+{
+    public int start;
+    public int end;
     
-    public ListNode MergeTwoLists2(ListNode list1, ListNode list2)
+    public Interval(int start, int end)
     {
-        // if list1 happen to be NULL
-        if (list1 == null)
-        {
-            return list2;
-        }
-
-        // if list2 happen to be NULL
-        if (list2 == null)
-        {
-            return list1;
-        }
-        // if value pointend by list1 pointer is less than equal to value pointed by list2 pointer
-        if (list1.val <= list2.val)
-        {
-            // ... we wall call recursively list1.next and whole list2.
-            list1.next = MergeTwoLists(list1.next, list2);
-            return list1;
-        }else
-        {
-            list2.next = MergeTwoLists(list1, list2.next);
-            return list2;
-        }
+        this.start = start;
+        this.end = end;
     }
-
-    public double GetVal(ListNode list1)
-    {
-        if (list1 == null)
-        {
-            return double.PositiveInfinity;
-        }
-
-        return (double)list1.val;
-    }
-    
-
-    public ListNode MergeTwoLists3(ListNode list1, ListNode list2)
-    {
-        ListNode dummy = new ListNode(0);
-        ListNode curr = dummy;
-
-        while (list1 != null || list2 != null)
-        {
-            if (GetVal(list1) < GetVal(list2))
-            {
-                curr.next = list1;
-                list1 = list1.next;
-            }
-            else
-            {
-                curr.next = list2;
-                list2 = list2.next;
-            }
-            curr = curr.next;
-        }
-        return dummy.next;
-    }
-        
-        
-    
-    
 }
+
+public class Solution()
+{
+    public bool CanAttendMeetings(Interval[] intervals)
+    {
+        Array.Sort(intervals, (a, b) => a.start.CompareTo(b.start));
+
+
+        for (int i = 0; i < intervals.Length - 1; i++)
+        {
+            if (intervals[i].end > intervals[i + 1].start)
+            {
+                return false;
+            }
+
+        }
+        return true;
+    }
+}
+
 
 class Program
 {
     static void Main(string[] args)
     {
         
-        ListNode list1 = new ListNode(1, new ListNode(2, new ListNode(4)));
-        ListNode list2 = new ListNode(1, new ListNode(3, new ListNode(4)));
-
-        Solution solution = new Solution();
-
-        solution.MergeTwoLists(list1, list2);
-
     }
 }
