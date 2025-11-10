@@ -14,20 +14,30 @@ public class Interval
 
 public class Solution()
 {
-    public bool CanAttendMeetings(Interval[] intervals)
+    public int BinarySearch(int[] nums, int item)
     {
-        Array.Sort(intervals, (a, b) => a.start.CompareTo(b.start));
+        int min = 0;
+        int max = nums.Length - 1;
 
-
-        for (int i = 0; i < intervals.Length - 1; i++)
+        while (min <= max)
         {
-            if (intervals[i].end > intervals[i + 1].start)
-            {
-                return false;
-            }
+            int mid = (min + max) / 2;
+            int guess = nums[mid];
 
+            if (guess == item)
+            {
+                return guess;
+            }else if (guess > item)
+            {
+                max = mid - 1;
+            }
+            else
+            {
+                max = mid + 1;
+            }
         }
-        return true;
+
+        return min;
     }
 }
 
