@@ -16,8 +16,8 @@ public class Solution
 {
     public bool IsPalindrome(ListNode head)
     {
-         ListNode first_half_end_node = middleNode(head);
-         ListNode second_half_begin_node = reverseList(first_half_end_node);
+         ListNode middle = middleNode(head);
+         ListNode reverse = reverseList(middle);
          
          //     p1          p2
          // in: 1 ->  2  -> 3
@@ -32,7 +32,7 @@ public class Solution
         
         
          ListNode p1 = head;
-         ListNode p2 = second_half_begin_node;
+         ListNode p2 = reverse;
 
          while (p1 != null && p2 != null)
          {
@@ -45,6 +45,29 @@ public class Solution
              p2 = p2.Next;
          }
          return true;
+    }
+
+
+    public bool IsPalindrome2(ListNode head)
+    {
+        if (head == null)
+        {
+            return true;
+        }
+        
+        ListNode middle = middleNode(head);
+        ListNode reverse = reverseList(middle);
+
+        while (reverse != null)
+        {
+            if (reverse.Data != head.Data)
+            {
+                return false;
+            }
+            reverse = reverse.Next;
+            head = head.Next;
+        }
+        return true;
     }
 
     public ListNode reverseList(ListNode head)
