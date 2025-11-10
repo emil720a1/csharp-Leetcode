@@ -1,44 +1,30 @@
 ﻿
 
-public class Interval
-{
-    public int start;
-    public int end;
-    
-    public Interval(int start, int end)
-    {
-        this.start = start;
-        this.end = end;
-    }
-}
+
 
 public class Solution()
 {
-    public int BinarySearch(int[] nums, int item)
+    public int peakIndexMountainArray(int[] arr)
     {
-        int min = 0;
-        int max = nums.Length - 1;
+        int left = 0;
+        int right = arr.Length - 1;
 
-        while (min <= max)
+        while (left <= right)
         {
-            int mid = (min + max) / 2;
-            int guess = nums[mid];
+            int mid = (left + right) / 2;
 
-            if (guess == item)
+            if (arr[mid] < arr[mid + 1])
             {
-                return guess;
-            }else if (guess > item)
-            {
-                max = mid - 1;
+                left = mid + 1;
             }
             else
             {
-                max = mid + 1;
+                right = mid - 1;
             }
         }
-
-        return min;
+        return left;
     }
+
 }
 
 
