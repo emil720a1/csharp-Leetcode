@@ -13,31 +13,32 @@
 }
 public class Solution
 {
-    public IList<IList<int>>PreOrder(TreeNode node, int level, IList<IList<int>> levels)
+    public void PreOrder(TreeNode node, int level, IList<int> result)
     {
         if (node == null)
         {
-            return levels;
+            return;
         }
 
-        if (level == levels.Count)
+        if (level == result.Count)
         {
-            levels.Add(new List<int>());
+            result.Add(0);
         }
         
-        levels[level].Add(node.val);
+        result[level] = node.val;
         
-        levels = PreOrder(node.left, level + 1, levels);
-        levels = PreOrder(node.right, level + 1, levels);
+         PreOrder(node.left, level + 1, result);
+         PreOrder(node.right, level + 1, result);
         
-        return levels;
     }
 
-    public IList<IList<int>> LevelOrder(TreeNode root)
+    public IList<int> RightSideView(TreeNode root)
     {
-        IList<IList<int>> levels = new List<IList<int>>();
+        IList<int> result = new List<int>();
         
-        return PreOrder(root, 0, levels);
+        PreOrder(root, 0, result);
+        
+        return result;
     }
 }
 
