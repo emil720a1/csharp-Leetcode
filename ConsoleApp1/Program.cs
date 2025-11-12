@@ -15,27 +15,19 @@ public class TreeNode
 }
 public class Solution
 {
-
-    private bool Check(TreeNode l, TreeNode r)
+    public bool IsSameTree(TreeNode p, TreeNode q)
     {
-        if (l == null || r == null)
+        if (p == null || q == null)
         {
-            return l == null && r == null;
+            return p == null && q == null;
         }
 
-        if (l.val != r.val) return false;
-
-        bool outerSymmetric = Check(l.left, r.right);
-        bool innerSymmetric = Check(l.right, r.left);
-
-        return outerSymmetric && innerSymmetric;
-    }
-    
-    public bool IsSymmetric(TreeNode root)
-    {
-        if (root == null) return true;
-        
-        return Check(root.left, root.right);
+        if (p.val != q.val)
+        {
+            return false;
+        }
+       
+        return IsSameTree(p.left, q.left) && IsSameTree(p.right, q.right);
     }
 
 }
