@@ -15,21 +15,34 @@ public class TreeNode
 }
 public class Solution
 {
-    public bool IsSameTree(TreeNode p, TreeNode q)
+    private bool IsLeaf(TreeNode node)
     {
-        if (p == null || q == null)
-        {
-            return p == null && q == null;
-        }
-
-        if (p.val != q.val)
-        {
-            return false;
-        }
-       
-        return IsSameTree(p.left, q.left) && IsSameTree(p.right, q.right);
+        return node.left == null && node.right == null;
     }
 
+
+    public bool HasPathSum(TreeNode root, int targetSum)
+    {
+        return HasSum(root, 0, targetSum);
+    }
+
+
+    private bool HasSum(TreeNode node, int currSum, int targetSum)
+    {
+        if (node == null) return false;
+
+        int newCurrSum = currSum + node.val;
+
+        if (IsLeaf(node) && newCurrSum == targetSum)
+        {
+            return true;
+        }
+        
+        bool isLeftSubtreeHasSum = HasSum(node.left, newCurrSum, targetSum);
+        bool isRightSubtreeHasSum = HasSum(node.right, newCurrSum, targetSum);
+        
+        return isLeftSubtreeHasSum || isRightSubtreeHasSum;
+    }
 }
 
 class Program
