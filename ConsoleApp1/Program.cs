@@ -1,4 +1,6 @@
-﻿public class TreeNode
+﻿using System.Runtime.InteropServices.ComTypes;
+
+public class TreeNode
 {
     public int val;
     public TreeNode left;
@@ -13,33 +15,29 @@
 }
 public class Solution
 {
-    public void PreOrder(TreeNode node, int level, IList<int> result)
+
+    private bool Check(TreeNode l, TreeNode r)
     {
-        if (node == null)
+        if (l == null || r == null)
         {
-            return;
+            return l == null && r == null;
         }
 
-        if (level == result.Count)
-        {
-            result.Add(0);
-        }
+        if (l.val != r.val) return false;
+
+        bool outerSymmetric = Check(l.left, r.right);
+        bool innerSymmetric = Check(l.right, r.left);
+
+        return outerSymmetric && innerSymmetric;
+    }
+    
+    public bool IsSymmetric(TreeNode root)
+    {
+        if (root == null) return true;
         
-        result[level] = node.val;
-        
-         PreOrder(node.left, level + 1, result);
-         PreOrder(node.right, level + 1, result);
-        
+        return Check(root.left, root.right);
     }
 
-    public IList<int> RightSideView(TreeNode root)
-    {
-        IList<int> result = new List<int>();
-        
-        PreOrder(root, 0, result);
-        
-        return result;
-    }
 }
 
 class Program
