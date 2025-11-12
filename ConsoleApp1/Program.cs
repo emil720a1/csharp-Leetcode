@@ -20,12 +20,12 @@ public class Solution
             return;
         }
         
-        result.Add(node.val);
         Traverse(node.left, result);
+        result.Add(node.val);
         Traverse(node.right, result);
     }
     
-    public IList<int> PreorderTraversal(TreeNode root)
+    public IList<int> PostorderTraversal(TreeNode root)
     {
         IList<int> result = new List<int>();
         Traverse(root, result);
