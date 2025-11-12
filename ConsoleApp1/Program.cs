@@ -1,38 +1,35 @@
-﻿
-
-public class ListNode
+﻿public class TreeNode
 {
-    public int Data;
-    public ListNode Next;
+    public int val;
+    public TreeNode left;
+    public TreeNode right;
 
-    public ListNode(int data)
+    public TreeNode(int val = 0, TreeNode left = null, TreeNode right = null)
     {
-        Data = data;
-        Next = null;
+        this.val = val;
+        this.left = left;
+        this.right = right;
     }
 }
-
 public class Solution
 {
-    public ListNode RemoveElements(ListNode head, int val)
+    private void Traverse(TreeNode node, IList<int> result)
     {
-        ListNode dummy = new ListNode(0);
-        dummy.Next = head;
-
-        ListNode current = dummy;
-
-        while (current.Next != null)
+        if (node == null)
         {
-            if (current.Next.Data == val)
-            {
-                current.Next = current.Next.Next;
-            }
-            else
-            {
-                current = current.Next;
-            }
+            return;
         }
-        return dummy.Next;
+        
+        result.Add(node.val);
+        Traverse(node.left, result);
+        Traverse(node.right, result);
+    }
+    
+    public IList<int> PreorderTraversal(TreeNode root)
+    {
+        IList<int> result = new List<int>();
+        Traverse(root, result);
+        return result;
     }
 }
 
