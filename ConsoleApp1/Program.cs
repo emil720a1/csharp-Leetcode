@@ -13,23 +13,31 @@
 }
 public class Solution
 {
-    private void Traverse(TreeNode node, IList<int> result)
+    public IList<IList<int>>PreOrder(TreeNode node, int level, IList<IList<int>> levels)
     {
         if (node == null)
         {
-            return;
+            return levels;
+        }
+
+        if (level == levels.Count)
+        {
+            levels.Add(new List<int>());
         }
         
-        Traverse(node.left, result);
-        Traverse(node.right, result);
-        result.Add(node.val);
+        levels[level].Add(node.val);
+        
+        levels = PreOrder(node.left, level + 1, levels);
+        levels = PreOrder(node.right, level + 1, levels);
+        
+        return levels;
     }
-    
-    public IList<int> PostorderTraversal(TreeNode root)
+
+    public IList<IList<int>> LevelOrder(TreeNode root)
     {
-        IList<int> result = new List<int>();
-        Traverse(root, result);
-        return result;
+        IList<IList<int>> levels = new List<IList<int>>();
+        
+        return PreOrder(root, 0, levels);
     }
 }
 
