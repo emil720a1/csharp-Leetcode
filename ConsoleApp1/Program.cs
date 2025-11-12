@@ -21,8 +21,8 @@ public class Solution
         }
         
         Traverse(node.left, result);
-        result.Add(node.val);
         Traverse(node.right, result);
+        result.Add(node.val);
     }
     
     public IList<int> PostorderTraversal(TreeNode root)
